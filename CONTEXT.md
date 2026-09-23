@@ -1,5 +1,14 @@
 # Project Context (read this first every session)
 
+## ⚠️ GIT WORKFLOW (MUST FOLLOW, EVERY SESSION)
+- Repo: `https://github.com/brandsipdvg-glitch/stylebook.git` (private, branch `main`).
+- Two people work on this: User (customer side `/`) and friend (salon side `/salon`, `/admin`).
+- **BEFORE any pull request, catch-up, edit, or push:** FIRST run `git pull --rebase origin main` to download the other person's latest changes. The pull must happen BEFORE editing in a session (never edit stale files).
+- **AFTER finishing edits / end of session:** commit + `git push origin main` so the other person can pull next. (Only when user asks to save/push.)
+- If user says "pull" → `git status` to check for uncommitted local changes first, then pull. If local changes exist and user still wants to pull, ask whether to commit them first before pulling.
+- If a merge conflict appears: show both versions to the user and ask which to keep (customer user is the final decider).
+- Never push or edit without a pull in the same session.
+
 ## Goal
 - Build one app in this folder (/Users/sukshemk/sap)
 - ✅ DONE: "StyleBook" — a production-ready, mobile-first salon booking platform (Phase 1, investor-demo-ready).
