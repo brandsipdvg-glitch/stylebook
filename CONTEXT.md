@@ -1,7 +1,12 @@
 # Project Context (read this first every session)
 
+## 🔴 LIVE SITE
+- **URL:** https://brandsipdvg-glitch.github.io/stylebook/ (GitHub Pages, public repo).
+- Deploy method: build with `npm run build` (base './'), then `npx gh-pages -d dist -b gh-pages` → pushes the built site to the `gh-pages` branch → Pages serves it. Re-deploy after any merge.
+- Repo is PUBLIC (not private). Customer demo URL = live site URL; owner app at `#/salon`, admin at `#/admin`.
+
 ## ⚠️ GIT WORKFLOW (MUST FOLLOW, EVERY SESSION)
-- Repo: `https://github.com/brandsipdvg-glitch/stylebook.git` (private, branch `main`).
+- Repo: `https://github.com/brandsipdvg-glitch/stylebook.git` (public, branch `main`).
 - Two people work on this: User (customer side `/`) and friend (salon side `/salon`, `/admin`).
 - **BEFORE any pull request, catch-up, edit, or push:** FIRST run `git pull --rebase origin main` to download the other person's latest changes. The pull must happen BEFORE editing in a session (never edit stale files).
 - **AFTER finishing edits / end of session:** commit + `git push origin main` so the other person can pull next. (Only when user asks to save/push.)
