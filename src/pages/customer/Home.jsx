@@ -70,12 +70,12 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 bg-grid-fade opacity-20" />
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-600/40 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl" />
-        <div className="container-mx relative py-14 sm:py-16 lg:py-24">
+        <div className="container-mx relative py-10 sm:py-16 lg:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur">
               <FiStar className="h-3.5 w-3.5 text-amber-400" /> 10+ salons · 20+ styles · Booked on StyleBook
             </span>
-            <h1 className="text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-3xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
               Choose Your Style.
               <br />
               <span className="bg-gradient-to-r from-brand-300 via-rose-300 to-amber-200 bg-clip-text text-transparent">
@@ -84,10 +84,10 @@ export default function Home() {
               <br />
               Skip The Wait.
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-300">
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-300 sm:text-base">
               Find the perfect hairstyle and instantly book the salon that can deliver that exact look — right in your pocket.
             </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-7">
               <Link to="/hairstyles" className="btn flex-1 sm:flex-none">
                 <FiScissors className="h-4 w-4" /> Explore Hairstyles
               </Link>
@@ -95,7 +95,7 @@ export default function Home() {
                 <FiMapPin className="h-4 w-4" /> Find Salons
               </Link>
             </div>
-            <div className="mx-auto mt-8 max-w-lg">
+            <div className="mx-auto mt-6 max-w-lg sm:mt-8">
               <SearchBar
                 value={searchQ}
                 onChange={setSearchQ}

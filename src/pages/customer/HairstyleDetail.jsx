@@ -105,7 +105,7 @@ export default function HairstyleDetail() {
         </div>
 
         {/* Always-visible book bar */}
-        <div className="fixed inset-x-0 bottom-16 z-40 px-4 md:bottom-4">
+        <div className="fixed inset-x-0 bottom-4 z-40 px-4">
           <Link
             to={bookLink}
             className="btn-primary flex w-full items-center justify-center gap-2 !py-4 text-base shadow-glow"

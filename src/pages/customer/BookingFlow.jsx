@@ -10,6 +10,16 @@ import { getHairstyles, getSalons, getSalonSlots, createBooking, getSalon } from
 
 const steps = ['Style', 'Salon', 'Date', 'Slot', 'Details', 'Done']
 
+function dateStr(d) {
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${m}-${day}`
+}
+function timeStr() {
+  const d = new Date()
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+}
+
 function dayLabel(d) {
   const today = new Date()
   const tomorrow = new Date(today)
@@ -52,7 +62,7 @@ export default function BookingFlow() {
       const d = new Date()
       d.setHours(0, 0, 0, 0)
       d.setDate(d.getDate() + i)
-      arr.push(d.toISOString().slice(0, 10))
+      arr.push(dateStr(d))
     }
     setDates(arr)
   }, [])
@@ -258,9 +268,9 @@ export default function BookingFlow() {
           <h2 className="text-sm font-bold text-ink-900 dark:text-white">Pick a day</h2>
           <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
             {dates.map((d) => {
-              const dObj = new Date(d)
+              const dObj = new Date(d + 'T00:00:00')
               const active = date === d
-              const isToday = d === new Date().toISOString().slice(0, 10)
+              const isToday = d === dateStr(new Date())
               return (
                 <button key={d} onClick={() => { setDate(d); setSlot(null) }} className={`flex w-[76px] shrink-0 flex-col items-center gap-1 rounded-3xl px-3 py-4 transition ${active ? 'bg-brand-600 text-white shadow-glow' : 'bg-white text-ink-700 ring-1 ring-ink-900/10 dark:bg-ink-800 dark:text-ink-200 dark:ring-white/10'}`}>
                   <span className={`text-[11px] font-bold ${active ? 'text-rose-100' : 'text-ink-400'}`}>{dayLabel(dObj)}</span>
@@ -278,7 +288,7 @@ export default function BookingFlow() {
                 {slots.filter((s) => s.available).length === 0 && <p className="col-span-full py-6 text-center text-sm text-ink-400">No slots left that day.</p>}
                 {slots.filter((s) => s.available).map((s) => {
                   const on = slot?.id === s.id
-                  const past = date === new Date().toISOString().slice(0, 10) && s.time < new Date().toTimeString().slice(0, 5)
+                  const past = date === dateStr(new Date()) && s.time < timeStr()
                   return (
                     <button key={s.id} disabled={past || !s.available} onClick={() => { setSlot(s); next() }} className={`flex items-center justify-center gap-1 rounded-2xl px-3 py-3 text-sm font-bold transition ${on ? 'bg-brand-600 text-white shadow-glow' : 'bg-white text-ink-700 ring-1 ring-ink-900/10 dark:bg-ink-800 dark:text-ink-200 dark:ring-white/10'} ${(past || !s.available) ? 'opacity-30' : ''}`}>
                       <FiClock className="h-3.5 w-3.5" /> {s.time}
@@ -307,7 +317,7 @@ export default function BookingFlow() {
           <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
             {slots.filter((s) => s.available).map((s) => {
               const on = slot?.id === s.id
-              const past = date === new Date().toISOString().slice(0, 10) && s.time < new Date().toTimeString().slice(0, 5)
+              const past = date === dateStr(new Date()) && s.time < timeStr()
               return (
                 <button key={s.id} disabled={past} onClick={() => setSlot(s)} className={`flex items-center justify-center gap-1 rounded-2xl px-3 py-3 text-sm font-bold transition ${on ? 'bg-brand-600 text-white shadow-glow' : 'bg-white text-ink-700 ring-1 ring-ink-900/10 dark:bg-ink-800 dark:text-ink-200 dark:ring-white/10'} ${past ? 'opacity-30' : ''}`}>
                   <FiClock className="h-3.5 w-3.5" /> {s.time}
@@ -346,7 +356,7 @@ export default function BookingFlow() {
       )}
 
       {/* Bottom bar */}
-      <div className="fixed inset-x-0 bottom-16 z-40 px-4 md:bottom-4">
+      <div className="fixed inset-x-0 bottom-4 z-40 px-4">
         <div className="mx-auto flex max-w-md items-center gap-3 rounded-3xl bg-white/95 p-2.5 shadow-lift ring-1 ring-ink-900/5 backdrop-blur safe-bottom dark:bg-ink-900 dark:ring-white/10">
           <div className="flex-1 px-2">
             <p className="text-[11px] text-ink-400">{step === 4 ? 'Total' : 'Estimated'}</p>

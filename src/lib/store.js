@@ -150,8 +150,23 @@ export async function getSalonSlots(salonId, date, { includeName = true } = {}) 
   if (slots.length === 0) {
     slots = genSlots(salonId, date).map((s) => ({ ...s, available: true }))
   }
+  // never show slots that are already in the past for today
+  const todayLocal = dateOnly(new Date())
+  if (date === todayLocal) {
+    const now = timeOnly(new Date())
+    slots = slots.filter((s) => s.time >= now)
+  }
   if (!includeName) return clone(slots)
   return clone(slots)
+}
+
+function dateOnly(d) {
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${m}-${day}`
+}
+function timeOnly(d) {
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
 export async function createBooking(data) {

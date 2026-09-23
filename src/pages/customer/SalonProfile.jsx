@@ -9,6 +9,12 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { useToast } from '../../context/ToastContext.jsx'
 import { getSalon, getSalonSlots, getReviews, toggleFavorite, isFavorite } from '../../lib/store.js'
 
+function localDateStr(d) {
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${m}-${day}`
+}
+
 export default function SalonProfile() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -31,7 +37,7 @@ export default function SalonProfile() {
       setSalon(s)
       if (s) {
         const [sl, rv] = await Promise.all([
-          getSalonSlots(s.id, new Date().toISOString().slice(0, 10)),
+          getSalonSlots(s.id, localDateStr(new Date())),
           getReviews(s.id),
         ])
         setSlots(sl)
@@ -223,7 +229,7 @@ export default function SalonProfile() {
       </div>
 
       {/* Pinned book bar — always visible on every screen */}
-      <div className="fixed inset-x-0 bottom-16 z-40 px-4 md:bottom-4">
+      <div className="fixed inset-x-0 bottom-4 z-40 px-4">
         <div className="mx-auto max-w-md rounded-3xl bg-white/95 p-2.5 shadow-lift ring-1 ring-ink-900/5 backdrop-blur safe-bottom dark:bg-ink-900 dark:ring-white/10">
           {openSlots > 0 && (
             <Link to={bookLink} className="mb-2 flex items-center justify-between rounded-2xl bg-gradient-to-r from-brand-600 to-brand-700 px-3 py-2 text-white">
